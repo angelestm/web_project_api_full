@@ -1,0 +1,35 @@
+{
+  "name": "web_project_around_express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npx eslint .",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angelestm/web_project_around_express.git"
+  },
+  "author": "Angeles Torres",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/angelestm/web_project_around_express/issues"
+  },
+  "homepage": "https://github.com/angelestm/web_project_around_express#readme",
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "nodemon": "^3.1.0"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "express": "^4.19.0",
+    "mongoose": "^8.3.1",
+    "validator": "^13.12.0"
+  }
+}
