@@ -4,6 +4,9 @@ const users = require('./routes/users');
 const cards = require('./routes/cards');
 const bodyParser = require('body-parser');
 
+
+const { createUser, login, getCurrentUser } = require('./controllers/users');
+
 const app = express();
 // detecta el puerto 3000
 const {PORT = 3000} = process.env;
@@ -15,7 +18,12 @@ mongoose.connect('mongodb://localhost:27017/aroundb').then(() => {
 });
 
 // Configurar body-parser para analizar el cuerpo de las solicitudes en formato JSON
-app.use(bodyParser.json());
+app.use(bodyParser.json()) // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true }))
+
+app.post('/signin', login);
+app.post('/signup', createUser);
+
 app.use('/users', users);
 app.use('/cards', cards);
 app.use((req, res, next) => {

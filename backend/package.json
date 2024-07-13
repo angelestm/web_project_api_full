@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/angelestm/web_project_around_express#readme",
   "devDependencies": {
+    "cors": "^2.8.5",
     "eslint": "^8.57.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.29.1",
@@ -29,6 +30,7 @@
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "express": "^4.19.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.1",
     "validator": "^13.12.0"
   }
