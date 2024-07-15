@@ -10,12 +10,12 @@ const {jwtMiddleware} = require("./middlewares/auth");
 const {requestLogger, errorLogger} = require("./middlewares/logger");
 const {errors} = require("celebrate");
 const cors = require('cors');
+const app = express();
 
 // inclúyelos antes de otras rutas
 app.use(cors());
 app.options('*', cors());
 
-const app = express();
 // detecta el puerto 3000
 const {PORT = 3000} = process.env;
 
