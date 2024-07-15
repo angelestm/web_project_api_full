@@ -9,6 +9,11 @@ const { createUser, login } = require('./controllers/users');
 const {jwtMiddleware} = require("./middlewares/auth");
 const {requestLogger, errorLogger} = require("./middlewares/logger");
 const {errors} = require("celebrate");
+const cors = require('cors');
+
+// inclúyelos antes de otras rutas
+app.use(cors());
+app.options('*', cors());
 
 const app = express();
 // detecta el puerto 3000
