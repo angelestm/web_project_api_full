@@ -1,0 +1,7 @@
+.element__content {
+  width: 246px;
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  justify-self: center;
+}

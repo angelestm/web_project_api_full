@@ -1,0 +1,6 @@
+.userForm {
+  max-width: 358px;
+  display: flex;
+  flex-direction: column;
+  margin: 20px auto 80px auto;
+}

@@ -1,0 +1,13 @@
+.element__like-button {
+  height: 19px;
+}
+
+.element__like-button:hover {
+  color: #000000;
+  opacity: 0.5;
+}
+
+.element__like-button_active {
+  background-image: url(/src/images/likeButtonActive.jpg);
+  background-repeat: no-repeat;
+}

@@ -1,0 +1,17 @@
+.userForm__link {
+  height: 17px;
+  margin-top: 15px;
+  align-self: center;
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+@media screen and (max-width:320px) {
+  .userForm__link {
+    font-size: 12px;
+    line-height: 14px;
+    font-weight: 400;
+  }
+}

@@ -1,0 +1,10 @@
+.header__subheader {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+@media screen and (max-width:320px) {
+  .header__subheader{
+  }
+}

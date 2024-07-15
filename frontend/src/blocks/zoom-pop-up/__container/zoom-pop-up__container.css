@@ -1,0 +1,4 @@
+.zoom-pop-up__container.css {
+  position: absolute;
+  z-index: 15;
+}

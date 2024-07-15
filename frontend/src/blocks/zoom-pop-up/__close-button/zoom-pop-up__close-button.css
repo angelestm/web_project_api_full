@@ -1,0 +1,17 @@
+.zoom-pop-up__close-button {
+  color: #FFFFFF;
+  position: absolute;
+}
+
+.zoom-pop-up__close-button:hover {
+  opacity: 0.6;
+}
+
+@media screen
+and (max-width: 320px) {
+  .zoom-pop-up__close-button {
+    height: 26px;
+    top: -30px;
+    right: -30px;
+  }
+}

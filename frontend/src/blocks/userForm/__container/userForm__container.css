@@ -1,0 +1,11 @@
+.userForm__container {
+  height: 84px;
+  margin-bottom: 200px;
+}
+
+@media screen and (max-width:320px) {
+  .userForm__container {
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,19 @@
+.element__delete-button {
+  z-index: 1;
+  position: absolute;
+  right: 15px;
+  top: 18px;
+}
+
+.element__delete-button:hover {
+  color: #000000;
+  opacity: 0.7;
+}
+
+.element__delete-button_visible {
+  visibility: visible;
+}
+
+.element__delete-button_hidden {
+  visibility: hidden;
+}

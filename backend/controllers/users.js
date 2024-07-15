@@ -1,8 +1,6 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const ERROR_CODE = 400;
-const NOT_FOUND_CODE = 404;
-const SERVER_ERROR_CODE = 500;
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
@@ -108,4 +106,9 @@ module.exports.getCurrentUser = (req, res) => {
     })
     .catch((err) => res.status(500).send({ message: 'Error interno del servidor' }));
 };
+
+module.exports.getUserProfile = (req, res)=>{
+  const{ user } = req;
+  res.json({user});
+}
 

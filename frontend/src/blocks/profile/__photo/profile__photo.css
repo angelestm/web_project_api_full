@@ -1,0 +1,33 @@
+.profile__photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  z-index: 1;
+  object-fit: cover;
+  background-position: center;
+  background-size: cover;
+  color: transparent;
+}
+
+.profile__photo-overlay {
+  width: 122px;
+  height: 122px;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 2;
+  position: absolute;
+}
+
+.profile__photo-overlay:hover {
+  background-image: url(/src/images/editAvatar.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+  z-index: 5;
+}
+
+@media screen and (min-width: 320px) and (max-width: 880px) {
+  .profile__photo-overlay {
+    top: 0;
+  }
+}

@@ -1,0 +1,23 @@
+.header__sign {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  line-height: 22px;
+  margin-left: 23px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+.header__sign:hover {
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+@media screen and (max-width:320px) {
+  .header__sign {
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 400;
+    margin-right: 23px;
+  }
+}

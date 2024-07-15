@@ -5,7 +5,10 @@ const cards = require('./routes/cards');
 const bodyParser = require('body-parser');
 
 
-const { createUser, login, getCurrentUser } = require('./controllers/users');
+const { createUser, login } = require('./controllers/users');
+const {jwtMiddleware} = require("./middlewares/auth");
+const {requestLogger, errorLogger} = require("./middlewares/logger");
+const {errors} = require("celebrate");
 
 const app = express();
 // detecta el puerto 3000
@@ -21,15 +24,19 @@ mongoose.connect('mongodb://localhost:27017/aroundb').then(() => {
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }))
 
+app.use(requestLogger);
 app.post('/signin', login);
 app.post('/signup', createUser);
 
+app.use(jwtMiddleware);
+
 app.use('/users', users);
-app.use('/cards', cards);
-app.use((req, res, next) => {
-  req.user = {_id: '661c478ebd5153d27f90c829'};
-  next();
-});
+app.use('/cards',cards);
+
+app.use(errorLogger);
+
+app.use(errors());
+
 app.use((req, res) => {
   res.status(404).json({message: 'Recurso solicitado no encontrado'});
 });
