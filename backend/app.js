@@ -25,19 +25,16 @@ mongoose.connect('mongodb://localhost:27017/aroundb').then(() => {
   console.error('Error al conectar a MongoDB:', err.message);
 });
 
-// Configurar body-parser para analizar el cuerpo de las solicitudes en formato JSON
+app.use(requestLogger);
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }))
-
+app.post('/signin', login);
+app.post('/signup', createUser);
 app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('El servidor va a caer');
   }, 0);
 });
-
-app.use(requestLogger);
-app.post('/signin', login);
-app.post('/signup', createUser);
 
 app.use(jwtMiddleware);
 
