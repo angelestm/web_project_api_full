@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://tripleten.desarrollointerno.com';
+export const BASE_URL = 'https://aroundweb.robonauts.net/';
 
 export const register = (email, password) => {
   return fetch(`${BASE_URL}/signup`, {

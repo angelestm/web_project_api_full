@@ -49,7 +49,7 @@ export class Api {
   }
 }
 const api = new Api({
-  baseUrl: "https://around.nomoreparties.co/v1/web_es_07",
+  baseUrl: "https://api.aroundweb.robonauts.net/",
   headers: {
     authorization: "ab189ab2-a9a1-466c-bc79-ca9e08e3ee05",
     "Content-Type": "application/json"
