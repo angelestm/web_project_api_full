@@ -159,7 +159,7 @@ function App() {
   function handleUpdateAvatar(data) {
     api.updateURL("PATCH", "/users/me/avatar", data)
         .then((userData) => {
-          setCurrentUser(userData);
+          setCurrentUser(userData.data);
           setIsEditAvatarPopupOpen(false);
         })
   }
