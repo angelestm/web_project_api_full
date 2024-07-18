@@ -78,7 +78,6 @@ module.exports.updateAvatar = (req, res) => {
     .catch((error) => res.status(error.statusCode || ERROR_CODE).json({ message: error.message }));
 };
 
-// TODO: cambiar JWT por SECRET_KEY
 // Controlador para el login
 const { SECRET_KEY } = process.env;
 
