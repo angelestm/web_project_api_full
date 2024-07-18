@@ -6,7 +6,6 @@ import InfoToolTip from "./InfoToolTip";
 import * as auth from "../utils/auth";
 
 function Login({onLogin}) {
-  const navigate = useNavigate();
   const location = useLocation();
   
   const [userCredentials, setUserCredentials] = useState({
