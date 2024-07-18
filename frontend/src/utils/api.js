@@ -19,7 +19,7 @@ export class Api {
   
   getURL(pathURL) {
     return this.base(`${this._baseUrl}${pathURL}`, {
-      headers: this._headers
+      headers: this._getAuthHeaders()
     });
   }
   
@@ -31,7 +31,7 @@ export class Api {
     
     const config = {
       method: method,
-      headers: this._headers
+      headers: this._getAuthHeaders()
     }
     
     if (body) {
@@ -44,15 +44,28 @@ export class Api {
   deleteURL(pathURL) {
     return this.base(`${this._baseUrl}${pathURL}`, {
       method: "DELETE",
-      headers: this._headers,
+      headers: this._getAuthHeaders(),
     });
   }
+  
+  _getAuthHeaders() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return this._headers;  // Return the headers without Authorization if no token is found
+    }
+    return {
+      ...this._headers,
+      'Authorization': `Bearer ${token}`,
+    };
+  }
 }
+
+const baseUrl = "https://api.aroundweb.robonauts.net";
+
 const api = new Api({
-  baseUrl: "https://api.aroundweb.robonauts.net/",
+  baseUrl: baseUrl,
   headers: {
-    authorization: "ab189ab2-a9a1-466c-bc79-ca9e08e3ee05",
-    "Content-Type": "application/json"
+    'Content-Type': 'application/json',
   }
 });
 

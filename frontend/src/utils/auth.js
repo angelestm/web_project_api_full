@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://aroundweb.robonauts.net/';
+export const BASE_URL = 'https://api.aroundweb.robonauts.net';
 
 export const register = (email, password) => {
   return fetch(`${BASE_URL}/signup`, {
@@ -54,7 +54,7 @@ export const getToken = (token) => {
   })
       .then((res) => res.json())
       .then((data) => {
-        return data;
+        return data.data;
       })
       .catch((err) => console.log(err));
 };

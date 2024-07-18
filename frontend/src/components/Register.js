@@ -33,9 +33,7 @@ function Register() {
     auth
         .register(userCredentials.email, userCredentials.password)
         .then((data) => {
-          console.log(data);
           if (data) {
-            
             setIsInfoOpen(true);
             setSuccessRegister(true);
             

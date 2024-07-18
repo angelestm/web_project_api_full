@@ -71,11 +71,11 @@ function Login({onLogin}) {
             required
         />
       </UserForm>
-      {/*<InfoToolTip*/}
-      {/*    isSuccess={successRegister}*/}
-      {/*    isInfoOpen={isInfoOpen}*/}
-      {/*    onCloseBtn={onCloseInfoTool}*/}
-      {/*></InfoToolTip>*/}
+      <InfoToolTip
+          isSuccess={successRegister}
+          isInfoOpen={isInfoOpen}
+          onCloseBtn={onCloseInfoTool}
+      ></InfoToolTip>
     </>
   )
 }

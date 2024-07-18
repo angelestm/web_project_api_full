@@ -20,6 +20,9 @@ function Main(
 ) {
   
   const currentUser = useContext(CurrentUserContext);
+  if (!currentUser) {
+    return <></>;
+  }
   
   return (
         <main>

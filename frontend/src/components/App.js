@@ -7,13 +7,13 @@ import {Link, Route, Routes, useNavigate} from "react-router-dom";
 import Register from "./Register";
 import Login from "./Login";
 import * as auth from '../utils/auth';
+import {logOut} from '../utils/auth';
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import ImagePopup from "./ImagePopup";
 import Main from "./Main";
 import Header from "./Header";
-import {logOut} from "../utils/auth";
 import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
@@ -34,29 +34,6 @@ function App() {
   }, []);
   
   useEffect(() => {
-    if (localStorage.getItem('token')) {
-      const token = localStorage.getItem('token');
-      auth
-          .getToken(token)
-          .then((data) => {
-            if (data) {
-              setLoggedIn(true);
-              setEmail(data.email);
-              
-              navigate('/');
-            } else {
-              navigate('/signup');
-              throw new Error('Token inválido');
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-            navigate('/signup');
-          });
-    }
-  }, [loggedIn, navigate]);
-  
-  useEffect(() => {
     function handleKeyDown (event) {
       if (event.key === "Escape") {
         setIsEditProfilePopupOpen(false);
@@ -73,8 +50,9 @@ function App() {
   
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if(token){
+    if (token) {
       getUserInfo();
+      validateAuth(token);
     } else {
       navigate("/signin");
     }
@@ -82,30 +60,51 @@ function App() {
   
   const getUserInfo = () => {
     api.getURL("/users/me").then((userInfo) => {
-      setCurrentUser(userInfo);
+      setCurrentUser(userInfo.data);
     });
   };
+  
+  const validateAuth = (token) => {
+    auth
+        .getToken(token)
+        .then((data) => {
+          if (data) {
+            setLoggedIn(true);
+            setEmail(data.email);
+            
+            navigate('/');
+          } else {
+            navigate('/signup');
+            throw new Error('Token inválido');
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          navigate('/signup');
+        });
+  }
   
   function handleLogin(email, password){
     auth.authorize(email, password).then(({token}) => {
       localStorage.setItem("token", token);
       getUserInfo();
+      validateAuth(token);
     })
   }
   
   function handleCardLike(card) {
     // Verifica una vez más si a esta tarjeta ya le han dado like
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(userId => userId === currentUser._id);
     
     if (isLiked) {
       api
-          .deleteURL(`/cards/likes/${card._id}`)
+          .deleteURL(`/cards/${card._id}/likes`)
           .then((newCard => {
             setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
           }));
     } else {
       api
-          .updateURL("PUT", `/cards/likes/${card._id}`)
+          .updateURL("PUT", `/cards/${card._id}/likes`)
           .then((newCard => {
             setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
           }));

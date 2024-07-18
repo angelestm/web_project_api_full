@@ -9,14 +9,11 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const formIsValid = name.length > 2 && description.length > 2;
-  
-  console.log("testing name, about", name, description)
 
 // Después de cargar el usuario actual desde la API
 // sus datos serán usados en componentes gestionados.
 
   useEffect(() => {
-    console.log("testing current user", currentUser);
     // Reviso que el usuario en el contexto no sea `undefined`
     if (currentUser) {
       setName(currentUser.name || '');
