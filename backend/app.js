@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const users = require('./routes/users');
+const usersController = require('./controllers/users');
 const cards = require('./routes/cards');
 const bodyParser = require('body-parser');
 
@@ -15,8 +16,9 @@ const app = express();
 // Configurar CORS con opciones
 const corsOptions = {
   origin: '*', // Permitir cualquier origen
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Permitir estos métodos
-  allowedHeaders: ['Content-Type', 'Authorization'] // Permitir estos encabezados
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'], // Permitir estos métodos
+  allowedHeaders: ['Content-Type', 'Authorization'], // Permitir estos encabezados
+  credentials: true
 };
 app.use(cors(corsOptions));
 
@@ -42,8 +44,9 @@ app.get('/crash-test', () => {
 
 app.use(jwtMiddleware);
 
+
+app.use('/cards', cards);
 app.use('/users', users);
-app.use('/cards',cards);
 
 app.use(errorLogger);
 

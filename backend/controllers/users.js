@@ -1,8 +1,10 @@
+require("dotenv").config();
+
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
-const ERROR_CODE = 400;
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
+
+const ERROR_CODE = 400;
 
 module.exports.getAllUsers = (req, res) => {
   User.find()
@@ -76,16 +78,17 @@ module.exports.updateAvatar = (req, res) => {
     .catch((error) => res.status(error.statusCode || ERROR_CODE).json({ message: error.message }));
 };
 
+// TODO: cambiar JWT por SECRET_KEY
 // Controlador para el login
-const { NODE_ENV, JWT_SECRET } = process.env;
+const { SECRET_KEY } = process.env;
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
-  return User.statics.findUserByCredentials(email, password)
+  return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        NODE_ENV === "production" ? JWT_SECRET : "dev-secret",
+        SECRET_KEY,
         {
           expiresIn: "7d",
         }
@@ -96,19 +99,16 @@ module.exports.login = (req, res, next) => {
 };
 
 // Controlador para obtener la información del usuario actual
-module.exports.getCurrentUser = (req, res) => {
-  User.findById(req.user._id)
-    .then((user) => {
-      if (!user) {
-        return res.status(404).send({ message: 'Usuario no encontrado' });
-      }
-      res.send({ data: user });
-    })
-    .catch((err) => res.status(500).send({ message: 'Error interno del servidor' }));
+module.exports.getCurrentUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).send({ message: 'Usuario no encontrado' });
+    }
+    res.send({ data: user });
+  } catch (error) {
+    console.error('Error', error.toString());
+    res.status(500).send({ message: 'Error interno del servidor' });
+  }
 };
-
-module.exports.getUserProfile = (req, res)=>{
-  const{ user } = req;
-  res.json({user});
-}
 

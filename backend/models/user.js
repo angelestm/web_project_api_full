@@ -1,4 +1,4 @@
-const mongoose  = require('mongoose');
+const mongoose = require('mongoose');
 const validator = require("validator");
 const bcrypt = require("bcrypt");
 
@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
     default:
       "https://plus.unsplash.com/premium_photo-1705091981835-2d49de67d994?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     validate: {
-      validator: function(value) {
+      validator: function (value) {
         return /^(https?:\/\/)(www\.)?[\w\-]+(\.[\w\-]+)+([\/?#].*)?$/.test(value);
       },
       message: props => `${props.value} no es un enlace URL válido para el avatar.`
@@ -48,13 +48,13 @@ const userSchema = new mongoose.Schema({
     require: true,
     select: false,
   }
-  });
+});
 
 userSchema.statics.findUserByCredentials = function findUserByCredentials(
   email,
   password
 ) {
-  return this.findOne({ email })
+  return this.findOne({email})
     .select("+password")
     .then((user) => {
       if (!user) {
@@ -73,7 +73,6 @@ userSchema.statics.findUserByCredentials = function findUserByCredentials(
         });
       }
     })
-
     .catch((error) => {
       return Promise.reject(
         new Error("El usuario o contraseña son incorrectos")
@@ -81,6 +80,4 @@ userSchema.statics.findUserByCredentials = function findUserByCredentials(
     });
 };
 
-const User = mongoose.model('user', userSchema);
-
-module.exports = User;
+module.exports = mongoose.model('user', userSchema);

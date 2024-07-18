@@ -41,7 +41,11 @@ module.exports.deleteCard = async (req, res) => {
 };
 
 module.exports.likeCard = (req, res) => {
-  Card.findByIdAndUpdate(req.params.cardId, { $addToSet: { likes: req.user._id } })
+  Card.findByIdAndUpdate(
+    req.params.cardId,
+    { $addToSet: { likes: req.user._id } },
+    { new: true }
+  )
     .then((card) => {
       res.send(card);
     })
@@ -54,10 +58,11 @@ module.exports.likeCard = (req, res) => {
 module.exports.dislikeCard = (req, res) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
-    { $pull: { likes: req.user._id } }, // elimina _id del array
-    { new: true },
+    {$pull: {likes: req.user._id}}, // elimina _id del array
+    {new: true},
   )
+    .then((card) => res.send(card))
     .catch((error) => {
-      res.status(error.statusCode || ERROR_CODE).json({ message: error.message });;
+      res.status(error.statusCode || ERROR_CODE).json({message: error.message});
     });
 };

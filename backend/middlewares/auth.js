@@ -20,6 +20,7 @@ const jwtMiddleware = async (req, res, next) => {
     next();
     return req.user;
   } catch (err) {
+    console.log('error', err.toString());
     return res.status(403).send({ message: 'El token no es valido' });
   }
 };
