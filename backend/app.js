@@ -13,15 +13,6 @@ const {errors} = require("celebrate");
 const cors = require('cors');
 const app = express();
 
-// Configurar CORS con opciones
-const corsOptions = {
-  origin: '*', // Permitir cualquier origen
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'], // Permitir estos métodos
-  allowedHeaders: ['Content-Type', 'Authorization'], // Permitir estos encabezados
-  credentials: true
-};
-app.use(cors(corsOptions));
-
 // detecta el puerto 3000
 const {PORT = 3000} = process.env;
 
@@ -30,6 +21,28 @@ mongoose.connect('mongodb://localhost:27017/aroundb').then(() => {
 }).catch(err => {
   console.error('Error al conectar a MongoDB:', err.message);
 });
+
+
+// Configurar CORS con opciones
+const allowedOrigins = ['http://localhost:3000', 'https://api.aroundweb.robonauts.net'];
+// inclúyelos antes de otras rutas
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Permite solicitudes con origen undefined (p. ej., aplicaciones móviles)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'El CORS policy para este sitio no permite acceso desde el origen especificado.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  methods: ['GET', 'POST','PATCH', 'PUT', 'DELETE', 'OPTIONS'], // Allow these HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allow these headers
+  credentials: true // Allow credentials if needed
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 app.use(requestLogger);
 app.use(bodyParser.json()) // for parsing application/json
