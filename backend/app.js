@@ -22,23 +22,11 @@ mongoose.connect('mongodb://localhost:27017/aroundb').then(() => {
   console.error('Error al conectar a MongoDB:', err.message);
 });
 
-
-// Configurar CORS con opciones
-const allowedOrigins = ['http://localhost:3000', 'https://api.aroundweb.robonauts.net'];
 // inclúyelos antes de otras rutas
 const corsOptions = {
-  origin: function (origin, callback) {
-    // Permite solicitudes con origen undefined (p. ej., aplicaciones móviles)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
-      const msg = 'El CORS policy para este sitio no permite acceso desde el origen especificado.';
-      return callback(new Error(msg), false);
-    }
-    return callback(null, true);
-  },
-  methods: ['GET', 'POST','PATCH', 'PUT', 'DELETE', 'OPTIONS'], // Allow these HTTP methods
-  allowedHeaders: ['Content-Type', 'Authorization'], // Allow these headers
-  credentials: true // Allow credentials if needed
+  origin: '*',
+  methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'], // Allow these HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'] // Allow these headers
 };
 
 app.use(cors(corsOptions));
